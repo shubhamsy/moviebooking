@@ -1,0 +1,38 @@
+<%= form_with(model: seat, local: true) do |form| %>
+  <% if seat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(seat.errors.count, "error") %> prohibited this seat from being saved:</h2>
+
+      <ul>
+      <% seat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :show %>
+    <% @screen = Screen.all %>
+    <%= select_tag "seat[screen_id]", options_from_collection_for_select(@screen, "id", "name"), prompt: "Select Screen" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seat_numer %>
+    <%= form.number_field :seat_numer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.check_box :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

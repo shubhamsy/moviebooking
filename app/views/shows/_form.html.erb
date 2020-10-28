@@ -1,0 +1,33 @@
+<%= form_with(model: show, local: true) do |form| %>
+  <% if show.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(show.errors.count, "error") %> prohibited this show from being saved:</h2>
+
+      <ul>
+      <% show.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :movie %>
+    <% @movie = Movie.all %>
+    <%= select_tag "show[movie_id]", options_from_collection_for_select(@movie, "id", "name"), prompt: "Select Movie" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :starttime %>
+    <%= form.datetime_select :starttime %>
+  </div>
+
+  <div class="field">
+    <%= form.label :endtime %>
+    <%= form.datetime_select :endtime %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

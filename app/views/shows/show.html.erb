@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Starttime:</strong>
+  <%= @show.starttime %>
+</p>
+
+<p>
+  <strong>Endtime:</strong>
+  <%= @show.endtime %>
+</p>
+
+<%= link_to 'Edit', edit_show_path(@show) %> |
+<%= link_to 'Back', shows_path %>
