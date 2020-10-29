@@ -37,6 +37,11 @@ class SeatsController < ApplicationController
     end
   end
 
+
+  def admin_report_for_seats
+    
+  end
+
   # PATCH/PUT /seats/1
   # PATCH/PUT /seats/1.json
   def update

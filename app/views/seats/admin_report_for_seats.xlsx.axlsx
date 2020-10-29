@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+
+rows = ['Sr.No.']
+
+wb.add_worksheet(name: 'seat_data') do |sheet|
+  sheet.add_row rows
+
+  @seats.each_with_index do |seat,i|
+
+  	this_row = [i + 1]
+  	sheet.add_row this_row
+  end    
+end

@@ -9,21 +9,19 @@
 <% @movid = params[:movid].present? ? params[:movid] : ""
 @sid = params[:sid].present? ? params[:sid] : ""
 @scid = params[:scid].present? ? params[:scid] : "" %>
+
   <tbody>
     <% @seats.each do |seat| %>
       <tr>
         <td><%= seat.seat_name %></td>
           <% seat.rows.each do |row| %>
           <td>
-              <!-- <%#= form_for(Seat.new, :url => "/seats", :html => { :multipart => true, :class => "form-horizontal" }) do |f| %>                     -->
                   <label class="switch">
-                    <!-- <%#= f.check_box :checked,{:class => "chkupdate",:res=>"#{seat.checked}",:sid => "#{seat.id}",:rid => "#{row.id}"}, 1, 0 %>   -->
 
-                   <input type="checkbox" name="checked[]" class="chkupdate" value="<%= seat.checked %>" sid="<%= seat.seat_name %>" seatids ="<%= seat.id %>" rid="<%= row.id %>" class="checklist">
+                   <input type="checkbox" name="checked[]" class="chkupdate" value="<%= seat.checked %>" sid="<%= seat.seat_name %>" seatids ="<%= seat.id %>" rchk="<%= row.checked %>" rid="<%= row.id %>" class="checklist">
 
                     <span class="slider round"></span>
                   </label>
-              <!-- <#% end %>           -->
           </td>
           <% end %>
       </tr>
@@ -36,10 +34,12 @@
 <script type="text/javascript">
         
     $(".chkupdate").each(function () {
-        if ($(this).attr("res") == true) {
-            $(".chkupdate").prop('disabled', true);
+        if ($(this).attr("value") == "true" && $(this).attr("rchk") == "true") {
+            $(this).prop('checked', true);          
+            $(this).prop('disabled', true);
         } else {
-            $(".chkupdate").prop('disabled', false);
+            $(this).prop('checked', false);
+            $(this).prop('disabled', false);
         }
     });
 
@@ -47,9 +47,7 @@
     seat = [];
     seatids = [];
     row = [];
-    // $(".chkupdate").change(function(){
 
-    // });
 
     $(".submit").click(function(){
       var mid = $(this).attr("movid");

@@ -55,6 +55,8 @@ class TicketsController < ApplicationController
     number = Ticket.all.count + 1
     hash1 = Hash[params[:seatids].zip params[:rows]]
     hash1.each do |seatid,rowid|
+      Seat.find_by(id: seatid).update(checked: true)
+      Row.find_by(id: rowid,seat_id:seatid).update(checked: true)
       @ticket = Ticket.create(ticket_no: number,movie_id: params[:movie_id].to_i,price: params[:price].to_i,screen_id: params[:screen_id].to_i,show_id: params[:show_id].to_i,user_id: current_user.id,seats: params[:seats],rows: params[:rows],seat_id: seatid,row_id: rowid)
     end
     redirect_to "/movies", notice: 'Ticket was booked successfully.' 
