@@ -14,9 +14,9 @@ class SeatsTest < ApplicationSystemTestCase
     visit seats_url
     click_on "New Seat"
 
-    fill_in "Price", with: @seat.price
-    fill_in "Seat numer", with: @seat.seat_numer
-    check "Status" if @seat.status
+    check "Checked" if @seat.checked
+    fill_in "Row number", with: @seat.row_number
+    fill_in "Seat name", with: @seat.seat_name
     click_on "Create Seat"
 
     assert_text "Seat was successfully created"
@@ -27,9 +27,9 @@ class SeatsTest < ApplicationSystemTestCase
     visit seats_url
     click_on "Edit", match: :first
 
-    fill_in "Price", with: @seat.price
-    fill_in "Seat numer", with: @seat.seat_numer
-    check "Status" if @seat.status
+    check "Checked" if @seat.checked
+    fill_in "Row number", with: @seat.row_number
+    fill_in "Seat name", with: @seat.seat_name
     click_on "Update Seat"
 
     assert_text "Seat was successfully updated"

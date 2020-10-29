@@ -51,6 +51,15 @@ class TicketsController < ApplicationController
     end
   end
 
+  def receipt_data
+    number = Ticket.all.count + 1
+    hash1 = Hash[params[:seatids].zip params[:rows]]
+    hash1.each do |seatid,rowid|
+      @ticket = Ticket.create(ticket_no: number,movie_id: params[:movie_id].to_i,price: params[:price].to_i,screen_id: params[:screen_id].to_i,show_id: params[:show_id].to_i,user_id: current_user.id,seats: params[:seats],rows: params[:rows],seat_id: seatid,row_id: rowid)
+    end
+    redirect_to "/movies", notice: 'Ticket was booked successfully.' 
+  end 
+
   # DELETE /tickets/1
   # DELETE /tickets/1.json
   def destroy
@@ -69,6 +78,6 @@ class TicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticket_params
-      params.require(:ticket).permit(:ticket_no,:user_id)
+      params.require(:ticket).permit(:ticket_no,:user_id,:movie_id,:show_id,:screen_id,:price,:seat_id,:row_id,:seats => [],:rows => [])
     end
 end

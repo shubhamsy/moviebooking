@@ -12,25 +12,19 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :show %>
-    <% @screen = Screen.all %>
-    <%= select_tag "seat[screen_id]", options_from_collection_for_select(@screen, "id", "name"), prompt: "Select Screen" %>
+    <%= form.label :seat_name %>
+    <%= form.text_field :seat_name %>
   </div>
 
   <div class="field">
-    <%= form.label :seat_numer %>
-    <%= form.number_field :seat_numer %>
+    <%= form.label :row_number %>
+    <%= form.number_field :row_number %>
+  </div>
+  <div class="field">
+    <%= form.label :checked %>
+    <%= form.check_box :checked %>
   </div>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.check_box :status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price %>
-  </div>
 
   <div class="actions">
     <%= form.submit %>

@@ -1,3 +1,4 @@
-class Movie < ApplicationRecord
-  has_many :shows, :foreign_key => :movie_id, class_name: "Show"
+class Movie < ApplicationRecord	
+	  has_many :shows
+	  has_many :screens, :through => :shows
 end

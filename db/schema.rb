@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_28_123157) do
+ActiveRecord::Schema.define(version: 2020_10_29_203326) do
 
   create_table "homes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 2020_10_28_123157) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "rows", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "row_number"
+    t.integer "seat_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "screens", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -31,12 +38,11 @@ ActiveRecord::Schema.define(version: 2020_10_28_123157) do
   end
 
   create_table "seats", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "seat_numer"
-    t.boolean "status"
-    t.integer "price"
+    t.string "seat_name"
+    t.boolean "checked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "screen_id"
+    t.integer "price"
   end
 
   create_table "shows", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -45,6 +51,7 @@ ActiveRecord::Schema.define(version: 2020_10_28_123157) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "movie_id"
+    t.integer "screen_id"
   end
 
   create_table "tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -52,6 +59,14 @@ ActiveRecord::Schema.define(version: 2020_10_28_123157) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "show_id"
+    t.integer "movie_id"
+    t.integer "screen_id"
+    t.integer "price"
+    t.text "seats"
+    t.text "rows"
+    t.integer "seat_id"
+    t.integer "row_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|

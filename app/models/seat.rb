@@ -1,4 +1,3 @@
 class Seat < ApplicationRecord
-	belongs_to :screen
-	has_one :ticket
+	has_many :rows
 end

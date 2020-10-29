@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Row number:</strong>
+  <%= @row.row_number %>
+</p>
+
+<p>
+  <strong>Seat:</strong>
+  <%= @row.seat_id %>
+</p>
+
+<%= link_to 'Edit', edit_row_path(@row) %> |
+<%= link_to 'Back', rows_path %>

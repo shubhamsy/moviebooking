@@ -69,6 +69,6 @@ class ShowsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def show_params
-      params.require(:show).permit(:starttime, :endtime,:movie_id)
+      params.require(:show).permit(:starttime, :endtime,:movie_id,:screen_id)
     end
 end

@@ -18,6 +18,12 @@
   </div>
 
   <div class="field">
+    <%= form.label :movie %>
+    <% @screen = Screen.all %>
+    <%= select_tag "show[screen_id]", options_from_collection_for_select(@screen, "id", "name"), prompt: "Select Screen" %>
+  </div>  
+
+  <div class="field">
     <%= form.label :starttime %>
     <%= form.datetime_select :starttime %>
   </div>

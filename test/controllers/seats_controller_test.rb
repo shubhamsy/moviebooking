@@ -17,7 +17,7 @@ class SeatsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create seat" do
     assert_difference('Seat.count') do
-      post seats_url, params: { seat: { price: @seat.price, seat_numer: @seat.seat_numer, status: @seat.status } }
+      post seats_url, params: { seat: { checked: @seat.checked, row_number: @seat.row_number, seat_name: @seat.seat_name } }
     end
 
     assert_redirected_to seat_url(Seat.last)
@@ -34,7 +34,7 @@ class SeatsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update seat" do
-    patch seat_url(@seat), params: { seat: { price: @seat.price, seat_numer: @seat.seat_numer, status: @seat.status } }
+    patch seat_url(@seat), params: { seat: { checked: @seat.checked, row_number: @seat.row_number, seat_name: @seat.seat_name } }
     assert_redirected_to seat_url(@seat)
   end
 

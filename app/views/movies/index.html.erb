@@ -1,27 +1,52 @@
+<style type="text/css">
+  .container {
+    width: 450px;
+    /*border: 1px solid black;*/
+}
+.container ul {
+    padding: 0; 
+    margin: 0;
+    list-style-type: none;
+}
+.container ul li {
+    width: 150px;
+    height: 100px;
+    background-color: white;
+    float: left;
+    padding: 2px !important;
+    margin: 1px;    
+}
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid black;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+</style>
 <p id="notice"><%= notice %></p>
 
 <h1>Movies</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @movies.each do |movie| %>
-      <tr>
-        <td><%= movie.name %></td>
-        <td><%= link_to 'Show', movie %></td>
-        <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-        <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<div class="container">
+  <% @movies.each do |movie| %>
+      <ul>
+         <li class="center move" movid="<%= movie.id %>"><%= movie.name %></li>
+      </ul>
+  <% end %>
+</div>
 <br>
 
-<%= link_to 'New Movie', new_movie_path %>
+<!--         <td><#%= link_to 'Show', movie %></td>
+        <td><%#= link_to 'Edit', edit_movie_path(movie) %></td>
+        <td><%#= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+      <!-- </tr> -->
+
+<script type="text/javascript">
+  $(".move").click(function(){
+    var id = $(this).attr("movid");
+    window.location.href = "/screens?movid="+id;
+  });
+</script>
