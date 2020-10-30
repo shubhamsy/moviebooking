@@ -1,0 +1,43 @@
+
+<h1>Select And Download CSV</h1>
+
+  <div class="field">
+  	<label>Select Show</label>
+    <% @show = Show.all %>
+    <%= select_tag "show_id", options_from_collection_for_select(@show, "id", "timing"),:style=>"width: 15%",:class=>"showid", prompt: "Select Show" %>
+  </div>  
+
+  <div class="field">
+  	<label>Select Date</label>
+	<input type="text" data-date-format='yyyy-mm-dd' id="selectdateadmin" class="datepicker">
+  </div>
+
+	<button class="sub">Download</button>
+                      
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+	   $("#selectdateadmin").datepicker();
+	});	
+
+   	$(".sub").click(function(){
+	    
+	    var showid = $(".showid").val();
+        var date = $('.datepicker').val();
+		var DateinISO = $.datepicker.parseDate('mm/dd/yy', date); 
+
+		var DateNewFormat = $.datepicker.formatDate( "yy-mm-dd", new Date( DateinISO ) );
+
+	    
+	    if (showid == ""){
+	    	alert("Please select show")
+	    }
+	    if (date == ""){
+	    	alert("Please select date.");	    	
+	    }
+	    
+	    window.location.href = "/download_admin_report_for_seats.xlsx?showid="+showid+"&date="+DateNewFormat;      		
+   	});
+
+</script>

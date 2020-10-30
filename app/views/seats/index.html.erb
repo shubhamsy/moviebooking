@@ -11,14 +11,36 @@
 @scid = params[:scid].present? ? params[:scid] : "" %>
 
   <tbody>
+    <div class="row">      
+       <div class="col-sm-12">   
+          <div class="col-sm-4">
+            <label>Name</label>
+            <input type="text" placeholder="Enter Name" class="name">
+          </div>
+          <div class="col-sm-4">
+            <label>Mobile Number</label>
+            <input type="text" placeholder="Enter Mobile Number" class="mobile_number">
+          </div>
+          <div class="col-sm-4">
+            <label>Email</label>
+            <input type="email" placeholder="Enter Email" class="email">    
+          </div>
+       </div>
+    </div><br>
+    <%  %>
     <% @seats.each do |seat| %>
+    <%
+     date = Date.today.strftime("%Y-%m-%d")
+     @tick = Ticket.where("seat_id = (?) and created_at like (?)",seat.id,"%#{date}%").present? ? "hide" : "show" %>
+
+
       <tr>
-        <td><%= seat.seat_name %></td>
+        <td><%= seat.seat_name %></td> 
           <% seat.rows.each do |row| %>
           <td>
                   <label class="switch">
 
-                   <input type="checkbox" name="checked[]" class="chkupdate" value="<%= seat.checked %>" sid="<%= seat.seat_name %>" seatids ="<%= seat.id %>" rchk="<%= row.checked %>" rid="<%= row.id %>" class="checklist">
+                   <input type="checkbox" name="checked[]" class="chkupdate" value="<%= seat.checked %>" sid="<%= seat.seat_name %>" tickpresent="<%= @tick %>" seatids ="<%= seat.id %>" rchk="<%= row.checked %>" rid="<%= row.id %>" class="checklist">
 
                     <span class="slider round"></span>
                   </label>
@@ -29,12 +51,12 @@
 
   </tbody>
 </table> <br>
-    <button class="submit" screnid="<%= @scid %>" shwid="<%= @sid %>" movid="<%= @movid %>">Book Seats</button>
+    <button class="submit" screnid="<%= @scid %>" shwid="<%= @sid %>" movid="<%= @movid %>">Proceed Booking</button>
 
 <script type="text/javascript">
         
     $(".chkupdate").each(function () {
-        if ($(this).attr("value") == "true" && $(this).attr("rchk") == "true") {
+        if ($(this).attr("value") == "true" && $(this).attr("rchk") == "true" && $(this).attr("tickpresent") == "hide") {
             $(this).prop('checked', true);          
             $(this).prop('disabled', true);
         } else {
@@ -53,8 +75,26 @@
       var mid = $(this).attr("movid");
       var sid = $(this).attr("shwid");
       var scid = $(this).attr("screnid");
+      var name = $(".name").val();
+      var mobile_number = $(".mobile_number").val();
+      var email = $(".email").val();
 
-      $(".chkupdate").each(function(){
+      if(name == ""){
+        alert("Please enter name.");
+        return false;
+      }
+
+      if(mobile_number == ""){
+        alert("Please enter mobile_number.");
+        return false;
+      }
+
+      if(email == ""){
+        alert("Please enter email.");
+        return false;
+      }
+
+      $(".chkupdate:not(:disabled)").each(function(){
         console.log($(this).is(":checked"));
          if($(this).is(":checked")){
           seat.push($(this).attr("sid")); 
@@ -65,7 +105,7 @@
 
       var r = confirm("Are you sure you want to proceed booking seats?");
         if (r == true) {
-          window.location.href = "/receipt?movid="+mid+"&sid="+sid+"&scid="+scid+"&seats="+seat+"&rows="+row+"&seatids="+seatids;      
+          window.location.href = "/receipt?movid="+mid+"&sid="+sid+"&scid="+scid+"&seats="+seat+"&rows="+row+"&seatids="+seatids+"&name="+name+"&mob="+mobile_number+"&email="+email;      
         } else {
           window.location.href = "/seats?movid="+mid+"&sid="+sid+"&scid="+scid;                          
         }

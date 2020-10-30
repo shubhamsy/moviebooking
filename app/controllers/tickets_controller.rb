@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user! , only: [:new, :create]
 
   # GET /tickets
   # GET /tickets.json
@@ -54,10 +55,12 @@ class TicketsController < ApplicationController
   def receipt_data
     number = Ticket.all.count + 1
     hash1 = Hash[params[:seatids].zip params[:rows]]
+
     hash1.each do |seatid,rowid|
-      Seat.find_by(id: seatid).update(checked: true)
-      Row.find_by(id: rowid,seat_id:seatid).update(checked: true)
-      @ticket = Ticket.create(ticket_no: number,movie_id: params[:movie_id].to_i,price: params[:price].to_i,screen_id: params[:screen_id].to_i,show_id: params[:show_id].to_i,user_id: current_user.id,seats: params[:seats],rows: params[:rows],seat_id: seatid,row_id: rowid)
+      @seat = Seat.find_by(id: seatid).update(checked: true)
+      @row = Row.find_by(id: rowid,seat_id:seatid).update(checked: true)
+      @cust = Customer.create(name: params[:name],mobile_number: params[:mobile],email: params[:email])
+      @ticket = Ticket.create(ticket_no: number,movie_id: params[:movie_id].to_i,price: params[:price].to_i,screen_id: params[:screen_id].to_i,show_id: params[:show_id].to_i,user_id: current_user.id,seats: params[:seats],rows: params[:rows],seat_id: seatid,row_id: rowid,customer_id: @cust.id)
     end
     redirect_to "/movies", notice: 'Ticket was booked successfully.' 
   end 
@@ -80,6 +83,6 @@ class TicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticket_params
-      params.require(:ticket).permit(:ticket_no,:user_id,:movie_id,:show_id,:screen_id,:price,:seat_id,:row_id,:seats => [],:rows => [])
+      params.require(:ticket).permit(:ticket_no,:user_id,:movie_id,:show_id,:screen_id,:price,:seat_id,:row_id,:customer_id,:seats => [],:rows => [])
     end
 end

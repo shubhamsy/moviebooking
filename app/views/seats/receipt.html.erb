@@ -6,6 +6,9 @@
 	<% @seatids = params[:seatids].split(",")
 		@seats = params[:seats].split(",")
  	   @rows = params[:rows].split(",") 	   	 	
+ 	   @name = params[:name]
+ 	   @mob = params[:mob]
+ 	   @email = params[:email]
 	%>
 	<% @price = 0 %>
 	<% @seats.each do |seat| %>
@@ -27,10 +30,10 @@
 <h2>Show/Screen</h2>
 <h3><%= Show.find_by(id: params[:sid]).try(:timing) %>/<%= Screen.find_by(id: params[:scid]).try(:name) %></h3>
 
-<h3><%= @seats.count %> tickets selected by <%= current_user.try(:email) %> costs total price <%= @price%>.</h3>
+<h3><%= @seats.count %> tickets selected by <%= @name.present? ? @name : "" %> costs total price <%= @price%>.</h3>
 
 </table>
 
 <br>
 
-<%= button_to "Book Now", {:controller => "tickets", :action => "receipt_data", :screen_id => @scid, :show_id => @sid, :movie_id => @movid, :price => @price,:seats=> @seats,:rows=> @rows,:seatids=> @seatids} , {:method=>:post}  %>
+<%= button_to "Book Now", {:controller => "tickets", :action => "receipt_data", :screen_id => @scid, :show_id => @sid, :movie_id => @movid, :price => @price,:seats=> @seats,:rows=> @rows,:seatids=> @seatids,:name=> @name,:mobile=>@mob,:email=> @email} , {:method=>:post}  %>

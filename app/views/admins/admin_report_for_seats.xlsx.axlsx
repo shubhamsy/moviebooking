@@ -19,8 +19,8 @@ wb.add_worksheet(name: 'seat_data') do |sheet|
           @email = ""        
       end
 
-      this_row = [i + 1,@name,@mobile,@email,@seats,ticket.try(:seat_id),ticket.try(:row_id)]
-    	sheet.add_row this_row
+      this_row = [i + 1,@name,@mobile,@email,ticket.try(:seat_id),ticket.try(:row_id)]
+      sheet.add_row this_row
     end    
   end
 end

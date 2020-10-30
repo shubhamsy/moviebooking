@@ -1,6 +1,6 @@
 class SeatsController < ApplicationController
   before_action :set_seat, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user! , only: [:new, :create]
   # GET /seats
   # GET /seats.json
   def index
@@ -38,10 +38,11 @@ class SeatsController < ApplicationController
   end
 
 
-  def admin_report_for_seats
-    
-  end
 
+
+  def list_seat_data
+
+  end
   # PATCH/PUT /seats/1
   # PATCH/PUT /seats/1.json
   def update
@@ -74,6 +75,6 @@ class SeatsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def seat_params
-      params.require(:seat).permit(:seat_name, :checked, :row_number)
+      params.require(:seat).permit(:seat_name, :checked)
     end
 end

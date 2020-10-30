@@ -4,12 +4,26 @@
     <title>Moviebookingsystem</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+  <%if user_signed_in?%>
+     <%= link_to "New Movie", new_movie_path%> | 
+     <%= link_to "New Screen", new_screen_path%> | 
+     <%= link_to "New Show", new_show_path%> | 
+     <%= link_to "New Seat", new_seat_path%> |
+     <%= link_to "New Row", new_row_path%> |
+     <%= link_to "Download CSV", "/list_seat_data"%> |
+     <%= link_to "Sign Out", destroy_user_session_path, method: :get %>
+  <%end%>    
     <%= yield %>
   </body>
 </html>

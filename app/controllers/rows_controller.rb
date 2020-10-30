@@ -1,6 +1,6 @@
 class RowsController < ApplicationController
   before_action :set_row, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user! , only: [:new, :create]
   # GET /rows
   # GET /rows.json
   def index
