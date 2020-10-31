@@ -1,6 +1,6 @@
 class ScreensController < ApplicationController
   before_action :set_screen, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user! , only: [:new, :create]
   # GET /screens
   # GET /screens.json
   def index
@@ -69,6 +69,6 @@ class ScreensController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def screen_params
-      params.require(:screen).permit(:name,:show_id)
+      params.require(:screen).permit(:name)
     end
 end
